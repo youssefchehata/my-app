@@ -3,22 +3,16 @@ import React, { useEffect } from 'react';
 import {
   Row,
   Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
   Card,
   Container,
- 
 } from 'react-bootstrap';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { AppState } from '../store/store';
-import { Utilisateur } from '../store/interfaces/utilisateur';
-import { Routes, Route, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getAlbums } from '../store/effects/Albums';
 import { Album } from '../store/interfaces/album';
+import { Message } from '../components/Message';
 
 
 
@@ -58,8 +52,16 @@ const albumsItems =
   return (
     <React.Fragment >
       <Container>
-      <h1>Voici les albums de :  {params.UserName}</h1>
+      {albums.albums.length===0 ?
+             <Message>
+                 La liste des albums est vide <Link to='/'>Revenir à la page d'accueil</Link>
+             </Message>
+      :
+      <>
+     <h1 className="Header" >Voici les albums de :  {params.UserName}</h1>
      <div>{albumsItems}</div>
+      </>}
+   
       </Container>
     </React.Fragment>
   );

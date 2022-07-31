@@ -14,7 +14,8 @@ import { AppState } from '../store/store';
 import {  useParams } from "react-router-dom";
 import { getImages } from '../store/effects/Images';
 import { Image } from '../store/interfaces/image';
-
+import { Message } from '../components/Message';
+import { Link } from "react-router-dom";
 
 
 function ImagesScreen() {
@@ -51,9 +52,17 @@ const imagesItems =
  const {AlbumTitle,UserName}=params
   return (
     <React.Fragment >
-      <Container>
-      <h2>Voici les images de l’album {AlbumTitle} de l’utilisateur {UserName} </h2>
+        <Container>
+      {images.images.length===0 ?
+       <Message>
+           La liste des images est vide <Link to='/'>Revenir à la page d'accueil</Link>
+       </Message>
+      :
+      <>
+      <h2 className="Header">Voici les images de l’album {AlbumTitle} de l’utilisateur {UserName} </h2>
      <div>{imagesItems}</div>
+      </>}
+   
       </Container>
     </React.Fragment>
   );
